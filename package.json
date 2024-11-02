@@ -1,6 +1,7 @@
 {
   "name": "expense-tracker",
   "version": "1.0.0",
+  "type": "module",
   "main": "index.js",
   "bin": {
     "expense-tracker": "index.js"

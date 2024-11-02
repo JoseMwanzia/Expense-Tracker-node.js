@@ -32,3 +32,7 @@
             console.log(`Expense added successfully (ID: ${tasks.length})`);
         }
     )
+
+    .demandCommand(1, 'You need at least one command before moving on')
+    .help()
+    .argv;

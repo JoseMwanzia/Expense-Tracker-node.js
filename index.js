@@ -13,3 +13,22 @@
             demandOption: true
         }
     },
+        async (argv) => {
+            const tasks = await readFromFiles();
+
+            function getNextId() {
+                return tasks.length + 1;
+            }
+
+            let newTask = {
+                id: getNextId(),
+                date: timeStamp(),
+                description: argv.description,
+                amount: argv.amount,
+            }
+
+            tasks.push(newTask)
+            await writeToFile(tasks)
+            console.log(`Expense added successfully (ID: ${tasks.length})`);
+        }
+    )

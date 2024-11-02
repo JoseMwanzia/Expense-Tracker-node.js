@@ -1,5 +1,10 @@
 #!/usr/bin/env node
 
+import { readFromFiles, writeToFile, timeStamp } from './helpers.js'
+import yargs from "yargs/yargs";
+import { hideBin } from "yargs/helpers";
+
+yargs(hideBin(process.argv))
     // include command name 'add' and a description
     .command('add', 'add a new expense', {
         description: {

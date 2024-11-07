@@ -38,6 +38,11 @@ yargs(hideBin(process.argv))
         }
     )
 
+    .command('list', 'Lists all the expenses', async () => {
+        const tasks = await readFromFiles()
+        console.log(tasks);  
+    })
+
     .demandCommand(1, 'You need at least one command before moving on')
     .help()
     .argv;

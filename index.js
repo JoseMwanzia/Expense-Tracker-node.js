@@ -51,6 +51,17 @@ yargs(hideBin(process.argv))
         console.log(`Total Expenses: $${totalExpenses}`);
     })
 
+    .command('delete', 'delete an expense with a specific ID', {
+        id: {
+            type: 'number',
+            describe: 'then enter the id of the deleted expense',
+            demandOption: true,
+        }
+    }, async (argv) => {
+        const tasks = await readFromFiles()
+        tasks.splice(argv.id - 1, 1)
+        await writeToFile(tasks)
+        console.log(`Expense deleted successfully`);
     })
 
     .demandCommand(1, 'You need at least one command before moving on')

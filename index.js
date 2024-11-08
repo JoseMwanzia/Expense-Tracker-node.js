@@ -43,6 +43,14 @@ yargs(hideBin(process.argv))
         console.table(tasks);  
     })
     
+    .command('summary', 'Gives a summary amount of your expenses', async () => {
+        const tasks = await readFromFiles()
+        const totalExpenses = tasks.reduce((accumulator, task) => {
+            return accumulator += task.amount
+        }, 0)
+        console.log(`Total Expenses: $${totalExpenses}`);
+    })
+
     })
 
     .demandCommand(1, 'You need at least one command before moving on')

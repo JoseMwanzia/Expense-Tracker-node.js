@@ -40,7 +40,28 @@ yargs(hideBin(process.argv))
 
     .command('list', 'Lists all the expenses', async () => {
         const tasks = await readFromFiles()
-        console.log(tasks);  
+        console.table(tasks);  
+    })
+    
+    .command('summary', 'Gives a summary amount of your expenses', async () => {
+        const tasks = await readFromFiles()
+        const totalExpenses = tasks.reduce((accumulator, task) => {
+            return accumulator += task.amount
+        }, 0)
+        console.log(`Total Expenses: $${totalExpenses}`);
+    })
+
+    .command('delete', 'delete an expense with a specific ID', {
+        id: {
+            type: 'number',
+            describe: 'then enter the id of the deleted expense',
+            demandOption: true,
+        }
+    }, async (argv) => {
+        const tasks = await readFromFiles()
+        tasks.splice(argv.id - 1, 1)
+        await writeToFile(tasks)
+        console.log(`Expense deleted successfully`);
     })
 
     .demandCommand(1, 'You need at least one command before moving on')

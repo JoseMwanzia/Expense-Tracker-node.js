@@ -17,4 +17,10 @@
     "description": "Lunch",
     "amount": 50
   },
+  {
+    "id": 4,
+    "date": "08/11/2024, 12:40:59",
+    "description": "Dinner",
+    "amount": 30
+  },
 ]

@@ -3,6 +3,7 @@
 import { readFromFiles, writeToFile, timeStamp } from './helpers.js'
 import yargs from "yargs/yargs";
 import { hideBin } from "yargs/helpers";
+import fs from "fs";
 
 yargs(hideBin(process.argv))
     // include command name 'add' and a description
@@ -109,6 +110,34 @@ yargs(hideBin(process.argv))
         console.log(`Total expenses for ${yearAndMonth}: $${totalMonthlyExpenses}`);
     })
 
+    .command('export', 'Export all expenses to a CSV file', {
+        filename: {
+            description: 'Name of the CSV file to export',
+            type: 'string',
+            demandOption: false,
+            default: 'expenses.csv'
+        }
+    }, async (argv) => {
+        const tasks = await readFromFiles();
+
+        // Define CSV headers based on your data fields
+        const headers = ['id', 'date', 'description', 'amount'];
+        const rows = tasks.map(task => 
+            [task.id, task.date, task.description, task.amount].join(',')
+        );
+
+        // Combine headers and rows into a single CSV string
+        const csvContent = [headers.join(','), ...rows].join('\n');
+
+        // Write to CSV file
+        fs.writeFile(argv.filename, csvContent, (err) => {
+            if (err) {
+                console.error('Error exporting to CSV:', err);
+            } else {
+                console.log(`Expenses exported successfully to ${argv.filename}`);
+            }
+        });
+    })
     .demandCommand(1, 'You need at least one command before moving on')
     .help()
     .argv;

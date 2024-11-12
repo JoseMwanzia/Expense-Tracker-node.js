@@ -2,6 +2,8 @@
 
 `expense-tracker` is a Node.js command-line tool for tracking personal expenses. This CLI allows you to add, list, delete, and summarize expenses, including support for monthly summaries.
 
+Link in [expense-tracker](https://roadmap.sh/projects/expense-tracker).
+
 ## Features
 
 - **Add Expense**: Record a new expense with a description and amount.
